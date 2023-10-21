@@ -1,5 +1,6 @@
-import { useState } from "react"
-import { Item, ItemId } from "./types"
+import { ItemType } from "./types"
+import { useItems } from "./hooks/useitems"
+import { Item } from "./components/item"
 /* const INTIIAL_ITEMS: Item[] = [
         {
             uid: crypto.randomUUID(),
@@ -8,27 +9,17 @@ import { Item, ItemId } from "./types"
         },
     ] */
 export default function HomePage() {
-	const [items, setItems] = useState<Item[]>([])
+	const { items, addItem, removeItem } = useItems()
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
 
 		const input = event.currentTarget.querySelector("input[name='item']") as HTMLInputElement
 
-		const item: Item = {
-			uid: crypto.randomUUID(),
-			text: input?.value,
-			timestamp: Date.now(),
-		}
 
-		setItems((prevItems) => [...prevItems, item])
+		addItem(input?.value)
 
 		input.value = ""
-	}
-	function handleDeleteTask(id: ItemId) {
-		setItems((prevItems) => {
-			return prevItems.filter((item) => item.uid !== id)
-		})
 	}
 	return (
 		<main
@@ -63,16 +54,12 @@ export default function HomePage() {
 					{items.length < 0 ? (
 						<h3>No hay ninguna tarea pendiente</h3>
 					) : (
-						items?.map((item) => (
-							<li key={item.uid}>
-								{item.text}
-								<button
-									className=" ml-[10px] bg-zinc-700 px-[10px] py-[10px] rounded-[7px]"
-									onClick={() => handleDeleteTask(item.uid)}
-								>
-									Eliminar
-								</button>
-							</li>
+						items?.map((item: ItemType) => (
+							<Item 
+                                {...item}
+                                handleClick={() => removeItem(item.uid)}
+                                key={item.uid}
+                            />
 						))
 					)}
 				</ul>

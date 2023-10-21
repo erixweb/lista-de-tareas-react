@@ -1,4 +1,4 @@
-export type Item = {
+export type ItemType = {
 	uid: ItemId
 	text: string
 	timestamp: number
