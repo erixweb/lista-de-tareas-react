@@ -1,6 +1,7 @@
 import { ItemType } from "./types"
 import { useItems } from "./hooks/useitems"
 import { Item } from "./components/item"
+import { useHeaders } from "./hooks/useheaders"
 /* const INTIIAL_ITEMS: Item[] = [
         {
             uid: crypto.randomUUID(),
@@ -11,6 +12,10 @@ import { Item } from "./components/item"
 export default function HomePage() {
 	const { items, addItem, removeItem } = useItems()
 
+    useHeaders({
+        title: "Lista de tareas",
+        description: "Prueba técnica de React que consiste en una lista de tareas con tests usando Vitest"
+    })
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
 

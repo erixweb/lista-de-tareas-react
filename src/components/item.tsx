@@ -1,7 +1,6 @@
 import { ItemId } from "../types"
 
 export const Item = ({
-	uid,
 	text,
 	handleClick,
 }: {
@@ -10,7 +9,7 @@ export const Item = ({
 	handleClick: () => void
 }) => (
 	<>
-		<li key={uid}>
+		<li>
 			{text}
 			<button
 				className=" ml-[10px] bg-zinc-700 px-[10px] py-[10px] rounded-[7px]"
